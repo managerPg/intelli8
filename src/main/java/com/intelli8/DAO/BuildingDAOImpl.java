@@ -1,5 +1,8 @@
 package com.intelli8.DAO;
 
+/*
+* @author G V Kushal 
+*/
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 

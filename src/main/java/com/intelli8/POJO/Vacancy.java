@@ -1,8 +1,13 @@
 package com.intelli8.POJO;
 
+
+/*
+* @author G V Kushal 
+*/
+
 /*
  * Class to create custom Vacancy JSON
- * */
+ */
 
 public class Vacancy {
 	private String buildingName;

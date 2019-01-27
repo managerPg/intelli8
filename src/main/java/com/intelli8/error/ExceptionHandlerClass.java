@@ -1,5 +1,8 @@
 package com.intelli8.error;
 
+/*
+* @author G V Kushal 
+*/
 import java.util.Date;
 
 import org.hibernate.HibernateException;

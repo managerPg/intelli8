@@ -1,5 +1,8 @@
 package com.intelli8.error;
 
+/*
+* @author G V Kushal 
+*/
 public class NoVacancyException extends RuntimeException {
 
 	public NoVacancyException(String message, Throwable cause) {

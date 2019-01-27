@@ -1,7 +1,11 @@
 package com.intelli8.service;
 
-import java.util.List;
 
+/*
+* @author G V Kushal 
+*/
+
+import java.util.List;
 import com.intelli8.POJO.Customer;
 
 public interface CustomerService {

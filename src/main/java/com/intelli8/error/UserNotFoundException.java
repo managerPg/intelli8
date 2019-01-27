@@ -1,5 +1,8 @@
 package com.intelli8.error;
 
+/*
+* @author G V Kushal 
+*/
 public class UserNotFoundException extends RuntimeException {
 
 	public UserNotFoundException(String message, Throwable cause) {

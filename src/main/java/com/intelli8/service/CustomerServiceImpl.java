@@ -1,12 +1,12 @@
 package com.intelli8.service;
 
+/*
+* @author G V Kushal 
+*/
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.intelli8.DAO.CustomerDAO;
 import com.intelli8.POJO.Customer;
 
@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	@Transactional
-	public String customerVacateService(int  customerId) {
+	public String customerVacateService(int customerId) {
 		return customerDAO.customerVacateDAO(customerId);
 	}
 
