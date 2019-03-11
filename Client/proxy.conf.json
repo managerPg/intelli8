@@ -1,0 +1,6 @@
+{
+"/buildings" :{
+"target" : "http://localhost:9098",
+"secure" : false
+}
+}

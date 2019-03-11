@@ -1,0 +1,62 @@
+<br>
+<h2 align="center">Enter Building Details</h2>
+
+<div class="container col-md-6">
+
+  <form [formGroup]="newBuildingForm" class="form-horizontal" (ngSubmit)="showForm()">
+
+    <div class="form-group">
+      <label for="buildingName" class="col-md-2"><b>Name *</b></label>
+      <input formControlName="buildingName" type="text" id="buildingName" class="form-control col-md-3">
+    </div>
+    <div class="form-group">
+      <label for="buildingArea" class="col-md-2"><b>Area *</b></label>
+      <input formControlName="buildingAdress" type="text" id="buildingArea" class="form-control col-md-3">
+    </div>
+    <div class="form-group">
+      <label for="buildingOwner" class="col-md-2"><b>Owner *</b></label>
+      <input formControlName="buildingOwner" type="text" id="buildingOwner" class="form-control col-md-3">
+    </div>
+    <br>
+
+
+    <div class="well">
+      <div formArrayName="floors" *ngFor="let floor of floors.controls; let floorindex = index">
+        <br><b> Enter floor {{floorindex+1}} details</b>
+        <div [formGroupName]="floorindex">
+          <div class="form-group">
+            <label class="col-md-2"><b>Floor Number *</b></label>
+            <input type="text" formControlName="floor" class="form-contro col-md-3l">
+          </div>
+          <div formArrayName="rooms" *ngFor="let room of floor.controls.rooms.controls; let roomIndex=index">
+            <div class="well my_well-class">
+              <div [formGroupName]="roomIndex">
+                <div>
+                  <button type="button" class="btn btn-secondary" (click)="pushRoomGroup(floorindex)">Add Room</button>
+                </div>
+                <br><b>Enter Room Number {{roomIndex + 1}} Detials in Floor {{floorindex + 1}} </b>
+                <div class="form-group">
+                  <label class="col-md-2"><b>Rooom Number *</b></label>
+                  <input formControlName="roomNumber" type="number" class="form-control col-md-3">
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2"><b>Room Capacity *</b></label>
+                  <input formControlName="roomCapacity" type="text" class="form-control col-md-3">
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2"><b>Vacancies *</b></label>
+                  <input formControlName="vacancies" type="text" class="form-control col-md-3">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-secondary" (click)="pushFloorGroup()">Add Floor</button>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submti</button>
+  </form>
+  {{newBuildingForm.value | json}}
+</div>
