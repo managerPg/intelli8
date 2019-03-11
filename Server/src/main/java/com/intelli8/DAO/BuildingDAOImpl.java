@@ -22,6 +22,7 @@ public class BuildingDAOImpl implements BuildingDAO {
 	public Building addBuildingDAO(Building building) {
 	Session session = entityManager.unwrap(Session.class);
 	session.save(building);
+	System.out.println("Welocme");
 	return building;
 	}
 
