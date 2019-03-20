@@ -1,0 +1,37 @@
+package com.simeio.OIA;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
+
+public class UpdateOIADB {
+
+	public static void main(String[] args) throws Exception {
+
+		Connection con = null;
+		String applicationName;
+		String url = "jdbc:oracle:thin:@172.31.2.113:1521:VANTIVDEV";
+		String userName = "rbacxservice";
+		String password = "Oia12cDb";
+
+
+
+		/*
+		 * Connection to Database and execute query
+		 */
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		con = DriverManager.getConnection(url, userName, password);
+		String query = "update accounts set suspended=1 where namespacekey=(select namespacekey from namespaces where namespaceshortname in 'ACR';);";
+		Statement stmt = con.createStatement();
+		int NumberOfRowsUpdated = stmt.executeUpdate(query);
+		System.out.println("Number of rows updated : " + NumberOfRowsUpdated);
+	}
+
+}

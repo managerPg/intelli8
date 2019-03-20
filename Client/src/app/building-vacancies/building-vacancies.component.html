@@ -1,0 +1,18 @@
+<p>
+  app works
+Name of the building is : {{buildingName}}
+</p>
+
+<div class="form-group">
+  <label><b>Filter by Floor</b></label>
+  <select class="form-control">
+    <option value=''>--Select Floor--</option>
+    <option *ngFor="let vacancy of vacancies">{{vacancy.floor}} </option>
+  </select>
+</div>
+
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let vacancy of vacancies">
+    {{vacancy.floor}}  {{vacancy.roomNumber}}  {{vacancy.vacancies}}
+  </li>
+</ul>

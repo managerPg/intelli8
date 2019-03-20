@@ -1,0 +1,61 @@
+package com.oia.db.DBUpdate;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.util.Iterator;
+import java.util.Properties;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class App {
+	
+	public static void main(String[] args) throws Exception {
+
+		int count=0,NumberOfRowsUpdated;
+		Connection con = null;
+		Cell cell;
+		Row row;
+		String applicationName,File_Location;
+		String url = "jdbc:oracle:thin:@172.31.2.113:1521:VANTIVDEV";
+		String userName = "raxdbsvcacc";
+		String password = "QazsedC#123!";
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		con = DriverManager.getConnection(url, userName, password);
+		Statement stmt = con.createStatement();
+		
+		/*
+		 * Read Excel file 
+		 * */
+		
+		XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream("Applications.xlsx"));	
+		System.out.println("Sheet Name is:"+ workbook.getSheetAt(0));
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		Iterator<Row> rows= sheet.rowIterator();
+		rows.next();
+		while(rows.hasNext()){
+			row =  rows.next();
+			cell = row.getCell(0);
+			String query = "update accounts set suspended=1 where namespacekey=(select namespacekey from rbeacxservice2.namespaces where namespaceshortname in '"+ cell +"');";		
+			NumberOfRowsUpdated = stmt.executeUpdate(query);
+			System.out.println("Number of rows updated for"+ cell + "is" + NumberOfRowsUpdated);
+			System.out.println(cell.getStringCellValue());
+			count++;
+		}
+		System.out.println("Total COunt is:"+count);
+	}
+}
+
+/* //Getting data from application.properties file.
+
+Properties p = new Properties();
+InputStream input = new FileInputStream("application.properties");
+p.load(input);
+applicationName = p.getProperty("application");
+File_Location = p.getProperty("File_Location");
+System.out.println(File_Location);
+System.out.println("Name of applicaion:" + applicationName);*/

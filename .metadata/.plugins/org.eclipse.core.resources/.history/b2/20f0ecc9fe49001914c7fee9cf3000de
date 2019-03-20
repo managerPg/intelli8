@@ -1,0 +1,11 @@
+package com.oia.db.DBUpdate;
+
+public class ZeroUpdatedException extends Exception{
+	
+
+	public ZeroUpdatedException(String message) {
+		super(message);
+		System.out.println("Zero Number of Rows Updated in Exception class Please Check...!!!");
+	}
+
+}

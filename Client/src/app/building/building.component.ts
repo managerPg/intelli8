@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, Validators, FormArray, FormGroup} from '@angular/forms';
+import { BuildingService } from 'src/shared/building.service';
 
 @Component({
   selector: 'app-building',
@@ -8,19 +10,25 @@ import {FormBuilder, Validators, FormArray, FormGroup} from '@angular/forms';
 })
 export class BuildingComponent implements OnInit
  {
+  model: NgbDateStruct;
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder, private _buildingService:BuildingService) { }
 
   ngOnInit() {
   }
 
-  pushFloorGroup(){
-    (<FormArray>this.newBuildingForm.get('floors')).push(this.addFloorGroup());
+  get buildingName(){
+    return this.newBuildingForm.get('buildingName');
   }
-  pushRoomGroup(floorindex){
-    (<FormArray>(<FormArray>this.newBuildingForm.get('floors')).at(floorindex).get('rooms')).push(this.addRoomGroup());
+  
+  get buildingAdress(){
+    return this.newBuildingForm.get('buildingAdress');
   }
-
+  
+  get buildingOwner(){
+    return this.newBuildingForm.get('buildingOwner');
+  }
+ 
 newBuildingForm = this.fb.group({
   buildingName:['',Validators.required],
   buildingAdress:['',Validators.required],
@@ -32,7 +40,7 @@ newBuildingForm = this.fb.group({
 
 addFloorGroup():FormGroup{
   return this.fb.group({
-    floor:['',Validators.required],
+    floorNumber:['',Validators.required],
     rooms:this.fb.array([
       this.addRoomGroup()
     ])
@@ -54,8 +62,28 @@ get rooms(){
 return (<FormArray>this.newBuildingForm.get('rooms'));
 }
 
-showForm(){
+ 
+pushFloorGroup(){
+  (<FormArray>this.newBuildingForm.get('floors')).push(this.addFloorGroup());
+}
+pushRoomGroup(floorIndex){
+  (<FormArray>(<FormArray>this.newBuildingForm.get('floors')).at(floorIndex).get('rooms')).push(this.addRoomGroup());
+}
+popFloorGroup(floorIndex){
+  (<FormArray>this.newBuildingForm.get('floors')).removeAt(floorIndex);
+}
+
+popRoomGroup(floorIndex,roomIndex){
+  console.log("Room Index is"+roomIndex);
+ (<FormArray>(<FormArray>this.newBuildingForm.get('floors')).at(floorIndex).get('rooms')).removeAt(roomIndex);
+}
+
+submitForm(){
   console.log(JSON.stringify(this.newBuildingForm.value));
+  this._buildingService.insertBuilding(JSON.stringify(this.newBuildingForm.value)).subscribe(
+    (error)=> console.log("Please check the URL")
+  );
+
 }
 
 

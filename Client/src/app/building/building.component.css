@@ -1,3 +1,21 @@
 .my_well-class{
 border-color: coral;
 }
+
+.Floor_well-class{
+    border-color: #A9AF6F;
+    }
+.margin{
+    margin-right:4px;
+    margin-bottom: 6px;
+}
+
+.now-ui-icons {
+    display: inline-block;
+    font: normal normal normal 32px/1 'Nucleo Outline';
+    speak: none;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+

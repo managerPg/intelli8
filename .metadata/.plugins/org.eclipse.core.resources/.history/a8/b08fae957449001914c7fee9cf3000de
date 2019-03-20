@@ -1,0 +1,48 @@
+package com.simeio.OIA;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Properties;
+
+public class UpdateOIADB {
+
+	public static void main(String[] args) throws Exception {
+
+		/*Connection con = null;
+		String applicationName;
+		String url = "jdbc:oracle:thin:@172.31.2.113:1521:VANTIVDEV";
+		String userName = "gvkushal";
+		String password = "Q#Azx$drdc45";
+
+		
+		 * Getting data from application.properties file.
+		 
+		Properties p = new Properties();
+		InputStream input = new FileInputStream("application.properties");
+		p.load(input);
+		applicationName = p.getProperty("application");
+		System.out.println("Name of applicaion:" + applicationName);
+
+		
+		 * Connection to Database and execute query
+		 
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		con = DriverManager.getConnection(url, userName, password);
+		Statement stmt1 = con.createStatement();*/
+		String query2 = "delete namespacekey from rbacxservice.namespaces select namespaceshortname in 'ACR'";
+		String query[] = query2.split(" ");
+			if(query2.contains("select") || query2.contains("delete")|| query2.contains("insert")){
+				System.out.println("Hey you are not supposed to perform DLL statements..!!");
+			}
+	
+		/*ResultSet rs = stmt1.executeQuery(query2);
+		rs.next();
+		System.out.println("The Namespacekey is:"+rs.getInt(1));*/
+		//System.out.println("Number of rows updated : " + NumberOfRowsUpdated);
+	}
+
+}

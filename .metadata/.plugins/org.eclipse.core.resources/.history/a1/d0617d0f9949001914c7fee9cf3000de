@@ -1,0 +1,63 @@
+package com.oia.db.DBUpdate;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Iterator;
+import java.util.Properties;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class App {
+
+	public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, FileNotFoundException{
+
+		Cell cell;
+		Row row;
+		int count = 0, NumberOfRowsUpdated;
+		Connection con = null;
+
+		// Database Details
+		String url = "jdbc:oracle:thin:@172.31.2.113:1521:VANTIVDEV";
+		String userName = "rbacxservice";
+		String password = "Oia12Db";
+
+		// Connecting to Database
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		con = DriverManager.getConnection(url, userName, password);
+		Statement stmt = con.createStatement();
+
+		// Read data from Excel file
+		XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream("Applications.xlsx"));
+		System.out.println("Sheet Name is:" + workbook.getSheetAt(0));
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		Iterator<Row> rows = sheet.rowIterator();
+		rows.next();
+		while (rows.hasNext()) {
+			row = rows.next();
+			cell = row.getCell(0);
+			try {
+				String query = "update accounts set suspended=1 where namespacekey=(select namespacekey from namespaces where namespaceshortname in '"
+						+ cell.getStringCellValue() + "')";
+				NumberOfRowsUpdated = stmt.executeUpdate(query);
+				System.out.println("Number of Rows Effected:" + NumberOfRowsUpdated);
+				System.out.println("Number of rows updated for" + cell + "is" + NumberOfRowsUpdated);
+				System.out.println(cell.getStringCellValue());
+				count++;
+			} catch (SQLException sql) {
+
+				System.out.println("Sql Exception Occured..!!");
+				System.out.println("Unable to update" + cell + "application");
+			}
+		}
+		System.out.println("Total Number of applications updated are :" + count);
+	}
+}

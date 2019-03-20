@@ -1,0 +1,55 @@
+package com.oia.db.DBUpdate;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class App {
+	public static void main(String[] args) throws Exception {
+
+		Connection con = null;
+		String applicationName,File_Location;
+	/*	String url = "jdbc:oracle:thin:@172.31.2.113:1521:VANTIVDEV";
+		String userName = "raxdbsvcacc";
+		String password = "QazsedC#123!";*/
+
+		/*
+		 * Getting data from application.properties file.
+		 */
+		/*Properties p = new Properties();
+		InputStream input = new FileInputStream("application.properties");
+		p.load(input);
+		applicationName = p.getProperty("application");
+		File_Location = p.getProperty("File_Location");
+		System.out.println(File_Location);
+		System.out.println("Name of applicaion:" + applicationName);*/
+
+		/*
+		 * Read Excel file from outside folder
+		 * */
+		@SuppressWarnings("deprecation")
+		XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream("Applications.xlsx"));	
+		System.out.println("Sheet Name is:"+ workbook.getSheetAt(0));
+		
+		/*
+		 * Connection to Database and execute query
+		 */
+		/*Class.forName("oracle.jdbc.driver.OracleDriver");
+		con = DriverManager.getConnection(url, userName, password);
+		String query = "update accounts set suspended=1 where namespacekey=(select namespacekey from namespaces where namespaceshortname in '"
+				+ applicationName + "');";
+		Statement stmt = con.createStatement();
+		int NumberOfRowsUpdated = stmt.executeUpdate(query);
+		System.out.println("Number of rows updated : " + NumberOfRowsUpdated);*/
+	}
+
+}

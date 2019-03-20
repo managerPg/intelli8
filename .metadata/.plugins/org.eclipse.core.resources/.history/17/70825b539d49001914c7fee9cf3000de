@@ -1,0 +1,9 @@
+package com.oia.db.DBUpdate;
+
+public class ZeroUpdatedException extends Exception{
+	
+	public void zeroUpdatedException(String error){
+		super(error);
+	}
+
+}

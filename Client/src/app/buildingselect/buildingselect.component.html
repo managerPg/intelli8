@@ -1,0 +1,15 @@
+<h1>Select your Building</h1>
+<div class="form-group col-md-7">
+  <label><b>Building Name *</b></label><br>
+  <select class="form-control col-md-3"  #building="ngModel" id=buildingName [class.is-invalid]="building.invalid && building.touched" ngModel>
+    <option value=''>--Select Building Name--</option>
+    <option *ngFor = "let building of buildings">{{building}}</option>
+  </select> 
+  <small class="text-danger" [class.d-none]="building.valid || building.touched">Building Name required</small>
+  <button type="button" class="btn btn-primary btn-round"  (click)="showBuildingDetails(building)"> Submit </button>
+</div>
+<router-outlet></router-outlet>
+
+
+
+
